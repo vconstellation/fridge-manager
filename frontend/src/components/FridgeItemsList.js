@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -19,7 +19,7 @@ const FridgeItemsList = () => {
             const data = res.data;
             setFridgeItems(data);
         })
-    })
+    }, [])
 
     return (
         <Container className={classes.container} maxWidth="md">
@@ -28,10 +28,12 @@ const FridgeItemsList = () => {
                     return (
                         <ListItem key={item.id} button>
                             <ListItemText primary={item.item_name} />
+                            <ListItemText primary={item.exp_date} />
                         </ListItem>
                     )
                 })}
             </List>
+            <Button variant="contained" color="primary">test</Button>
         </Container>
     )
 }
