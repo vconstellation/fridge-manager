@@ -21,6 +21,12 @@ const FridgeItemsList = () => {
         })
     }, [])
 
+    const handleDelete = (item) => {
+        const newFridgeItems = fridgeItems.filter(fridgeItem => fridgeItem.id !== item.id);
+        setFridgeItems(newFridgeItems);
+        axios.delete(`/api/fridgeItems/${item.id}/`);
+    }
+
     return (
         <Container className={classes.container} maxWidth="md">
            <List>
@@ -29,6 +35,7 @@ const FridgeItemsList = () => {
                         <ListItem key={item.id} button>
                             <ListItemText primary={item.item_name} />
                             <ListItemText primary={item.exp_date} />
+                            <Button variant="contained" color="error" onClick={() => handleDelete(item)}>Delete?</Button>
                         </ListItem>
                     )
                 })}
