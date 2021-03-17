@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton, Divider } from '@material-ui/core';
+import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton, Divider, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         padding: 16,
     },
     list: {
-        textAlign: ""
+        textAlign: "center"
     }
 });
 
@@ -46,21 +46,40 @@ const FridgeItemsList = () => {
         <Container className={classes.container} maxWidth="md">
             <h4>Current date: {newDate}</h4>
             <AddItemForm refreshState={refreshState} />
-            <List>
-                {fridgeItems && fridgeItems.map(item => {
-                    return (
-                        <ListItem ckey={item.id} button>
-                            <ListItemText primary={item.item_name} />
-                            <ListItemText className={classes.list} primary={item.exp_date} />
-                            <ListItemText className={classes.list} primary={item.time_until_expired} secondary="days until expired"/>
-                            <IconButton onClick={() => handleDelete(item)}>
-                                <DeleteForever />
-                            </IconButton>
-                            <Divider />
-                        </ListItem>
-                    )
-                })}
-            </List>
+            <br />
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Product's name</TableCell>
+                            <TableCell>Expiration date</TableCell>
+                            <TableCell>Days remaining</TableCell>
+                            <TableCell> </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {fridgeItems && fridgeItems.map((item) => (
+                            <TableRow key={item.id}>
+                            <TableCell component="th" scope="row">
+                                {item.item_name}
+                            </TableCell>
+                            <TableCell>
+                                {item.exp_date}
+                            </TableCell>
+                            <TableCell>
+                                {item.time_until_expired}
+                            </TableCell>
+                            <TableCell>
+                                <IconButton onClick={() => handleDelete(item)}>
+                                    <DeleteForever />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                        ))}
+                        
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <Divider />
         </Container>
 
