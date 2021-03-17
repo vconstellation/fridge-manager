@@ -26,14 +26,16 @@ const FridgeItemsList = () => {
     useEffect(() => {
         axios.get("/api/fridgeItems/").then((res) => {
             const data = res.data;
-            setFridgeItems(data);
+            const sortedData = data.sort((a, b) => a.time_until_expired - b.time_until_expired);
+            setFridgeItems(sortedData);
         })
     }, [])
 
     const refreshState = () => {
         axios.get("/api/fridgeItems/").then((res) => {
             const data = res.data;
-            setFridgeItems(data);
+            const sortedData = data.sort((a, b) => a.time_until_expired - b.time_until_expired);
+            setFridgeItems(sortedData);
     })}
 
     const handleDelete = (item) => {
@@ -41,6 +43,8 @@ const FridgeItemsList = () => {
         setFridgeItems(newFridgeItems);
         axios.delete(`/api/fridgeItems/${item.id}/`);
     }
+
+
 
     return (
         <Container className={classes.container} maxWidth="md">
