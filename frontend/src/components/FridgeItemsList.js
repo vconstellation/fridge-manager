@@ -1,6 +1,7 @@
 import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import AddItemForm from './AddItemForm';
 
 const useStyles = makeStyles({
     container: {
@@ -14,12 +15,21 @@ const FridgeItemsList = () => {
 
     const [fridgeItems, setFridgeItems] = useState(null);
 
+   
+
+    //use effect that updates state with every refresh
     useEffect(() => {
         axios.get("/api/fridgeItems/").then((res) => {
             const data = res.data;
             setFridgeItems(data);
         })
     }, [])
+
+    const refreshState = () => {
+        axios.get("/api/fridgeItems/").then((res) => {
+            const data = res.data;
+            setFridgeItems(data);
+    })}
 
     const handleDelete = (item) => {
         const newFridgeItems = fridgeItems.filter(fridgeItem => fridgeItem.id !== item.id);
@@ -41,7 +51,10 @@ const FridgeItemsList = () => {
                 })}
             </List>
             <Button variant="contained" color="primary">test</Button>
+            <AddItemForm refreshState={refreshState} />
         </Container>
+
+
     )
 }
 
