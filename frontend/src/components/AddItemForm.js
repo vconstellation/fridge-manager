@@ -1,4 +1,4 @@
-import { Button, makeStyles, Dialog, TextField, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { Button, makeStyles, Dialog, TextField, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core';
 import { useState, forwardRef } from 'react';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
       fontSize: 22,
     },
     pos: {
-      marginBottom: 12,
+      marginBottom: 22,
     },
   });
 
@@ -64,28 +64,28 @@ const AddItemForm = (props) => {
     return (
         <div>
             <Button variant="contained" color="primary" onClick={handleOpen}>
-                Open modal
+                Add a product
             </Button>
             
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add new item</DialogTitle>
                 <DialogContent>
-                    <form onSubmit={handleSubmit}>
+                    <form className={classes.pos} onSubmit={handleSubmit}>
                         <div>
-                            <TextField label="Item" value={itemName} onChange={(e) => setItemName(e.target.value)}/>
+                            <Typography>Product's name:</Typography>
+                            <TextField label="ex. Paprika" value={itemName} onChange={(e) => setItemName(e.target.value)}/>
                         </div>
+                        <br/>
                         <div>
+                            <Typography>Date of expiration:</Typography>
                             <TextField type="date" value={expDate} onChange={(e) => setExpDate(e.target.value)} fullWidth />
                         </div>
                         <div>
-                            <Button type="submit">Submit</Button>    
+                            <Button type="submit">Submit</Button>
+                            <Button onClick={handleClose} color="primary">Cancel</Button>    
                         </div>  
                     </form>
                 </DialogContent>
-                <DialogActions>
-                    
-                    <Button onClick={handleClose} color="primary">Cancel</Button>
-                </DialogActions>
             </Dialog>
         </div>
     )

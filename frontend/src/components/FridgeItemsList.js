@@ -1,4 +1,5 @@
-import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton } from '@material-ui/core';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AddItemForm from './AddItemForm';
@@ -39,19 +40,21 @@ const FridgeItemsList = () => {
 
     return (
         <Container className={classes.container} maxWidth="md">
-           <List>
+            <AddItemForm refreshState={refreshState} />
+            <List>
                 {fridgeItems && fridgeItems.map(item => {
                     return (
                         <ListItem key={item.id} button>
                             <ListItemText primary={item.item_name} />
                             <ListItemText primary={item.exp_date} />
-                            <Button variant="contained" color="error" onClick={() => handleDelete(item)}>Delete?</Button>
+                            <IconButton onClick={() => handleDelete(item)}>
+                                <DeleteForever />
+                            </IconButton>
                         </ListItem>
                     )
                 })}
             </List>
             <Button variant="contained" color="primary">test</Button>
-            <AddItemForm refreshState={refreshState} />
         </Container>
 
 
