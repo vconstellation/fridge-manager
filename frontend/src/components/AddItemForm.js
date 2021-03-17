@@ -81,7 +81,8 @@ const AddItemForm = (props) => {
                             <TextField type="date" value={expDate} onChange={(e) => setExpDate(e.target.value)} fullWidth />
                         </div>
                         <div>
-                            <Button type="submit">Submit</Button>
+                            <br />
+                            <Button type="submit" variant="contained">Submit</Button>
                             <Button onClick={handleClose} color="primary">Cancel</Button>    
                         </div>  
                     </form>

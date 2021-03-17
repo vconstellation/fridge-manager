@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton } from '@material-ui/core';
+import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton, Divider } from '@material-ui/core';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,9 @@ import AddItemForm from './AddItemForm';
 const useStyles = makeStyles({
     container: {
         padding: 16,
+    },
+    list: {
+        textAlign: ""
     }
 });
 
@@ -16,7 +19,8 @@ const FridgeItemsList = () => {
 
     const [fridgeItems, setFridgeItems] = useState(null);
 
-   
+    //current date
+    const newDate = new Date(Date()).toLocaleDateString()
 
     //use effect that updates state with every refresh
     useEffect(() => {
@@ -40,21 +44,24 @@ const FridgeItemsList = () => {
 
     return (
         <Container className={classes.container} maxWidth="md">
+            <h4>Current date: {newDate}</h4>
             <AddItemForm refreshState={refreshState} />
             <List>
                 {fridgeItems && fridgeItems.map(item => {
                     return (
-                        <ListItem key={item.id} button>
+                        <ListItem ckey={item.id} button>
                             <ListItemText primary={item.item_name} />
-                            <ListItemText primary={item.exp_date} />
+                            <ListItemText className={classes.list} primary={item.exp_date} />
+                            <ListItemText className={classes.list} primary={item.time_until_expired} secondary="days until expired"/>
                             <IconButton onClick={() => handleDelete(item)}>
                                 <DeleteForever />
                             </IconButton>
+                            <Divider />
                         </ListItem>
                     )
                 })}
             </List>
-            <Button variant="contained" color="primary">test</Button>
+            <Divider />
         </Container>
 
 
