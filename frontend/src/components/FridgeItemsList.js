@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography, List, ListItem, ListItemText, Button, IconButton, Divider, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Container, makeStyles, IconButton, Divider, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -30,14 +30,14 @@ const FridgeItemsList = () => {
             setFridgeItems(sortedData);
         })
     }, [])
-
+    //func that fires whenever someone adds a new product to the db
     const refreshState = () => {
         axios.get("/api/fridgeItems/").then((res) => {
             const data = res.data;
             const sortedData = data.sort((a, b) => a.time_until_expired - b.time_until_expired);
             setFridgeItems(sortedData);
     })}
-
+    //function responsible for the deletion of records
     const handleDelete = (item) => {
         const newFridgeItems = fridgeItems.filter(fridgeItem => fridgeItem.id !== item.id);
         setFridgeItems(newFridgeItems);
@@ -55,7 +55,7 @@ const FridgeItemsList = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Product's name</TableCell>
+                            <TableCell>Product</TableCell>
                             <TableCell>Expiration date</TableCell>
                             <TableCell>Days remaining</TableCell>
                             <TableCell> </TableCell>

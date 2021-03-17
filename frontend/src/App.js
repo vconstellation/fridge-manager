@@ -19,7 +19,6 @@ function App() {
     <div className={classes.root}>
       <Navbar />
       <FridgeItemsList />
-      {/* <AddItemForm /> */}
     </div>
   );
 }
